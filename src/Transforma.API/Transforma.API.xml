@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Transforma.API</name>
+    </assembly>
+    <members>
+        <member name="M:TransformaPalavrasProject.Controllers.TransformaPalavraController.TransformarPalavra(Transforma.Domain.Commands.TransformarPalavraCommand)">
+            <summary>
+            Transformar a primeira palavra pela segunda palavra
+            </summary>
+            <param name="command">Comando</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
