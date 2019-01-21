@@ -15,7 +15,7 @@ namespace Transforma.Domain.Validators
             RuleFor(x => x.SegundaPalavra)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("A segunda palavra deve ser informada");
+                .WithMessage("A segunda palavra deve ser informada.");
         }
     }
 }

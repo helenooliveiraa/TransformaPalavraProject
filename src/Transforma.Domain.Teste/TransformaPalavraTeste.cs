@@ -30,5 +30,29 @@ namespace Transforma.Domain.Teste
 
             Assert.Equal(4, domain.TotalMovimentacao);
         }
+
+        [Fact]
+        public void TransformarPalavra3()
+        {
+            var domain = TransformaPalavraFactory.Create(new TransformarPalavraCommand
+            {
+                PrimeiraPalavra = "Foca",
+                SegundaPalavra = "Galo"
+            });
+
+            Assert.Equal(4, domain.TotalMovimentacao);
+        }
+
+        [Fact]
+        public void TransformarPalavra4()
+        {
+            var domain = TransformaPalavraFactory.Create(new TransformarPalavraCommand
+            {
+                PrimeiraPalavra = "Jaca",
+                SegundaPalavra = "Carro"
+            });
+
+            Assert.Equal(4, domain.TotalMovimentacao);
+        }
     }
 }

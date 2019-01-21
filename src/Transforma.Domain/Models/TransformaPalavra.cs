@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Transforma.Domain.Models
 {
@@ -9,62 +10,63 @@ namespace Transforma.Domain.Models
             PrimeiraPalavra = primeiraPalavra;
             SegundaPalavra = segundaPalavra;
 
-            CalcularTotalMovimentacoes();
+            TotalMovimentacao = ObterTotalMovimentacoes();
         }
 
         public string PrimeiraPalavra { get; private set; }
         public string SegundaPalavra { get; private set; }
         public int TotalMovimentacao { get; private set; }
 
-        public void CalcularTotalMovimentacoes()
+        public int ObterTotalMovimentacoes()
         {
-            int qtdLetraRemovida = ObterQuantidadeLetraRemovida();
+            int qtdLetraAlterada = ObterQuantidadeLetraAlterada();
 
-            TotalMovimentacao = qtdLetraRemovida +
-                ObterQuantidadeAlteracoes(RemoverLetrasPrimeiraPalavra(qtdLetraRemovida),
-                                          RemoverLetrasSegundaPalavra(qtdLetraRemovida));
+            string primeiraPalavra = PrimeiraPalavra;
+            string segundaPalavra = SegundaPalavra;
+
+            if (qtdLetraAlterada > 0)
+                primeiraPalavra = PrimeiraPalavra.Substring(qtdLetraAlterada, PrimeiraPalavra.Length - qtdLetraAlterada);
+
+            return qtdLetraAlterada + ObterQuantidadeAlteracoes(primeiraPalavra, segundaPalavra);
         }
 
-        private int ObterQuantidadeLetraRemovida()
+        private int ObterQuantidadeLetraAlterada()
         {
             int qtd = PrimeiraPalavra.Length - SegundaPalavra.Length;
 
             if (qtd <= 0)
-                qtd = qtd * -1;
+                return 0;
 
             return qtd;
         }
 
-        private string RemoverLetrasPrimeiraPalavra(int qtdLetraRemovida)
-        {
-            if (PrimeiraPalavra.Length > SegundaPalavra.Length)
-                return PrimeiraPalavra.Substring(qtdLetraRemovida, PrimeiraPalavra.Length - qtdLetraRemovida);
-
-            return PrimeiraPalavra;
-        }
-
-        private string RemoverLetrasSegundaPalavra(int qtdLetraRemovida)
-        {
-            if (SegundaPalavra.Length > PrimeiraPalavra.Length)
-                return SegundaPalavra.Substring(qtdLetraRemovida, SegundaPalavra.Length - qtdLetraRemovida);
-
-            return SegundaPalavra;
-        }
-
         private int ObterQuantidadeAlteracoes(string primeiraPalavra, string segundaPalavra)
         {
-            int qtdAlteracao = 0;
-
-            var primeiraPalavraList = primeiraPalavra.ToCharArray();
-            var segundaPalavraList = segundaPalavra.ToCharArray();
-
-            for (int i = 0; i < primeiraPalavraList.Length; i++)
+            try
             {
-                if (primeiraPalavraList[i] != segundaPalavraList[i])
-                    qtdAlteracao++;
-            }
+                int qtdAlteracao = 0;
 
-            return qtdAlteracao;
+                var primeiraPalavraList = primeiraPalavra.ToCharArray();
+                var segundaPalavraList = segundaPalavra.ToCharArray();
+
+                for (int i = 0; i < segundaPalavraList.Length; i++)
+                {
+                    if (primeiraPalavraList.Count() < (i + 1))
+                    {
+                        qtdAlteracao++;
+                        continue;
+                    }
+
+                    if (primeiraPalavraList[i].ToString().ToLower() != segundaPalavraList[i].ToString().ToLower())
+                        qtdAlteracao++;
+                }
+
+                return qtdAlteracao;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }

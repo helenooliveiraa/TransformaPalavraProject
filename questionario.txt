@@ -1,0 +1,17 @@
+1) EXPLIQUE COM SUAS PALAVRAS O QUE É DOMAIN DRIVEN DESIGN E SUA IMPORTÂNCIA NA ESTRATÉGIA DE DESENVOLVIMENTO DE SOFTWARE.
+Domain-Driven-Design é um conjunto de padrões de projeto, em que usa diversas práticas para que o código fale sobre o "negócio da instituição". 
+É importante pois visa a obrigatoriedade na utilização da "Orientação a Objeto" para aumentar a qualidade do código e consequentemente diminuir erros.
+
+2) EXPLIQUE COM SUAS PALAVRAS O QUE É E COMO FUNCIONA UMA ARQUITETURA BASEADA
+EM MICROSERVICES. EXPLIQUE GANHOS COM ESTE MODELO E DESAFIOS EM SUA
+IMPLEMENTAÇÃO.
+Uma arquitetura baseada em microservices é uma separação de responsabilidade em "pequenos serviços" a fim de executar determinadas ações do negócio. 
+Ao contrário, de se utilizar um monolito em que todas as regras de negócio estão no mesmo local, o microservice separa a "Aplicação" em pequenas execuções,
+segregando-as e tornando assim mais simples a sustentação do projeto. Os desafios de utilizar uma arquitetura em micro serviços é ter uma boa comunicação entre
+os serviços proveitosa da elaboração de um código bem desenvolvido. 
+
+3) EXPLIQUE QUAL A DIFERENÇA ENTRE COMUNICAÇÃO SINCRONA (HTTP) E ASSINCRONA
+(MSMQ) E QUAL O MELHOR CENÁRIO PARA UTILIZAR UMA OU OUTRA.
+Uma comunicação HTTP serve para transmissão de dados através de uma requisição POST, PUT, DELETE, etc. E para executar uma determinada ação
+na aplicação, seja de inserir informações, atualizar, deletar e obter e etc.
+MSMQ é uma fila de processos a serem executados referente a um evento de negócio que já aconteceu.

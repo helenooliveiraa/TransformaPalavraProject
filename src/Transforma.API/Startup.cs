@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using Transforma.Domain.CommandHandler;
 using Transforma.Domain.Commands;
 using Transforma.Domain.Core;
@@ -31,6 +33,8 @@ namespace TransformaPalavrasProject
             services.AddScoped<ITransformaPalavraRepository, TransformaPalavraRepository>();
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
             services.AddScoped<IRequestHandler<TransformarPalavraCommand, CommandResult>, TransformarPalavraCommandHandler>();
+
+            AddMediatr(services);
 
             services.AddSwaggerGen(c =>
             {
@@ -76,6 +80,20 @@ namespace TransformaPalavrasProject
                 c.SwaggerEndpoint("/swagger/v1/swagger.json",
                     "Transformar Palavras");
             });
+        }
+
+        private static void AddMediatr(IServiceCollection services)
+        {
+            const string applicationAssemblyName = "Transforma.Domain";
+            var assembly = AppDomain.CurrentDomain.Load(applicationAssemblyName);
+
+            AssemblyScanner
+                .FindValidatorsInAssembly(assembly)
+                .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
+
+            services.AddMediatR();
         }
     }
 }
